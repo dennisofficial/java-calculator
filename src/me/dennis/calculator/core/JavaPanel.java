@@ -8,16 +8,24 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import me.dennis.calculator.listeners.Keyboard;
+
 @SuppressWarnings("serial")
 public class JavaPanel extends JPanel implements ActionListener {
 
 	public static final Integer WIDTH = 100;
 	public static final Integer HEIGHT = 100;
 	
+	Keyboard keyboard = new Keyboard();
+	
 	public JavaPanel() {
 		super();
 		setFocusable(true);
 		requestFocus();
+		
+		keyboard.setup();
+		
+		addKeyListener(keyboard);
 		
 		new Timer(1000/60, this).start();
 	}
@@ -25,6 +33,7 @@ public class JavaPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
+		keyboard.reset();
 	}
 	
 	@Override
