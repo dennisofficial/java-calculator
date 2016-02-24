@@ -6,7 +6,9 @@ import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import me.dennis.calculator.listeners.Mouse;
 
 public class Button {
 
@@ -26,6 +28,11 @@ public class Button {
 	
 	public void update() {
 		bounds = new Rectangle(x, y, width, height);
+		if (Mouse.isPressed(MouseEvent.BUTTON1)) {
+			if (bounds.contains(Mouse.getPoint())) {
+				thread.run();
+			}
+		}
 	}
 	
 	public void draw(Graphics2D g) {

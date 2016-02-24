@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import me.dennis.calculator.listeners.Keyboard;
+import me.dennis.calculator.listeners.Mouse;
 import me.dennis.calculator.objects.Button;
 
 @SuppressWarnings("serial")
@@ -22,6 +23,7 @@ public class JavaPanel extends JPanel implements ActionListener {
 	
 	BufferedImage image;
 	Keyboard keyboard = new Keyboard();
+	Mouse mouse = new Mouse();
 	List<Button> buttons = new ArrayList<Button>();
 	
 	public JavaPanel() {
@@ -30,35 +32,24 @@ public class JavaPanel extends JPanel implements ActionListener {
 		requestFocus();
 		
 		keyboard.setup();
+		mouse.setupKeys();
 		
 		addKeyListener(keyboard);
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 		
 		setupButtons();
 		
-		new Timer(1000/60, this).start();
+		new Timer(1000/20, this).start();
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		keyboard.reset();
 		for (Button button : buttons) {
 			button.update();
 		}
-	}
-	
-	public void setupButtons() {
-		Integer num = 9;
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 3; x++) {
-				final Integer parm = num;
-				buttons.add(new Button(String.valueOf(num--), x + ((WIDTH / 4) * x), y + ((WIDTH / 4) * (y + 1)), WIDTH / 4, WIDTH / 4, new Thread(new Runnable() {
-					@Override
-					public void run() {
-						System.out.println(parm - 1);
-					}
-				})));
-			}
-		}
+		keyboard.reset();
+		mouse.reset();
 	}
 	
 	@Override
@@ -77,6 +68,21 @@ public class JavaPanel extends JPanel implements ActionListener {
 		
 		g1.drawImage(image, 0, 0, WIDTH / 2, HEIGHT / 2, null);
 		repaint();
+	}
+	
+	public void setupButtons() {
+		Integer num = 9;
+		for (int y = 0; y < 3; y++) {
+			for (int x = 0; x < 3; x++) {
+				final Integer parm = num;
+				buttons.add(new Button(String.valueOf(num--), x + ((WIDTH / 4) * x), y + ((WIDTH / 4) * (y + 1)), WIDTH / 4, WIDTH / 4, new Thread(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println(parm - 1);
+					}
+				})));
+			}
+		}
 	}
 	
 	public void setRenderingHints(Graphics2D g) {
