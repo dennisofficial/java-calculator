@@ -30,7 +30,7 @@ public class Button {
 	
 	public void draw(Graphics2D g) {
 		g.setColor(new Color(0x0));
-		g.fillRect(x - (width / 2), y - (height / 2), width, height);
+		g.fillRect(x, y, width, height);
 		g.setColor(new Color(0xFFFFFF));
 		Font font = null;
 		try {
@@ -40,7 +40,7 @@ public class Button {
 		}
 		g.setFont(font);
 		FontMetrics fm = g.getFontMetrics(font);
-		g.drawString(text, x - (fm.stringWidth(text) / 2), y + (fm.getHeight() / 3));
+		g.drawString(text, x - (fm.stringWidth(text) / 2) + (width / 2), y + (fm.getHeight() / 3) + (height / 2));
 	}
 	
 }
