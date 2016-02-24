@@ -34,13 +34,13 @@ public class Button {
 		g.setColor(new Color(0xFFFFFF));
 		Font font = null;
 		try {
-			font = Font.createFont(Font.PLAIN, getClass().getResourceAsStream("/fonts/SFUIDisplay-Thin.ttf"));
+			font = Font.createFont(Font.PLAIN, getClass().getResourceAsStream("/fonts/SFUIDisplay-Thin.ttf")).deriveFont(Font.PLAIN, 75f);
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
 		g.setFont(font);
 		FontMetrics fm = g.getFontMetrics(font);
-		g.drawString(text, x - (fm.stringWidth(text) / 2), y + (fm.getHeight() / 4));
+		g.drawString(text, x - (fm.stringWidth(text) / 2), y + (fm.getHeight() / 3));
 	}
 	
 }
