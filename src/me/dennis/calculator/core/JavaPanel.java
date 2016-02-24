@@ -7,10 +7,10 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import me.dennis.calculator.listeners.Keyboard;
 import me.dennis.calculator.objects.Button;
 
@@ -22,6 +22,7 @@ public class JavaPanel extends JPanel implements ActionListener {
 	
 	BufferedImage image;
 	Keyboard keyboard = new Keyboard();
+	List<Button> buttons = new ArrayList<Button>();
 	
 	public JavaPanel() {
 		super();
@@ -32,15 +33,32 @@ public class JavaPanel extends JPanel implements ActionListener {
 		
 		addKeyListener(keyboard);
 		
+		setupButtons();
+		
 		new Timer(1000/60, this).start();
 	}
-
-	Button b = new Button("TEST", 200, 200, 300, 300, null);
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		b.update();
 		keyboard.reset();
+		for (Button button : buttons) {
+			button.update();
+		}
+	}
+	
+	public void setupButtons() {
+		Integer num = 9;
+		for (int y = 0; y < 3; y++) {
+			for (int x = 0; x < 3; x++) {
+				final Integer parm = num;
+				buttons.add(new Button(String.valueOf(num--), x + ((WIDTH / 4) * x), y + ((WIDTH / 4) * (y + 1)), WIDTH / 4, WIDTH / 4, new Thread(new Runnable() {
+					@Override
+					public void run() {
+						System.out.println(parm - 1);
+					}
+				})));
+			}
+		}
 	}
 	
 	@Override
@@ -53,7 +71,9 @@ public class JavaPanel extends JPanel implements ActionListener {
 		g2.setColor(new Color(0xE0E0E0));
 		g2.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		b.draw(g2);
+		for (Button button : buttons) {
+			button.draw(g2);
+		}
 		
 		g1.drawImage(image, 0, 0, WIDTH / 2, HEIGHT / 2, null);
 		repaint();
