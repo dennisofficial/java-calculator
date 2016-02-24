@@ -35,7 +35,7 @@ public class JavaPanel extends JPanel implements ActionListener {
 		new Timer(1000/60, this).start();
 	}
 
-	Button b = new Button("TEST", 0, 0, 300, 300, null);
+	Button b = new Button("TEST", 200, 200, 300, 300, null);
 	
 	@Override
 	public void actionPerformed(ActionEvent event) {
