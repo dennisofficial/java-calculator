@@ -2,12 +2,10 @@ package me.dennis.calculator.objects;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import me.dennis.calculator.listeners.Mouse;
 
 public class Button {
@@ -36,17 +34,12 @@ public class Button {
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(new Color(0x0));
+		g.setColor(new Color(0xD4D5D9));
 		g.fillRect(x, y, width, height);
-		g.setColor(new Color(0xFFFFFF));
-		Font font = null;
-		try {
-			font = Font.createFont(Font.PLAIN, getClass().getResourceAsStream("/fonts/SFUIDisplay-Thin.ttf")).deriveFont(Font.PLAIN, 75f);
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		}
-		g.setFont(font);
+		g.setColor(new Color(0x0));
+		Font font = g.getFont().deriveFont(Font.PLAIN, 27f);
 		FontMetrics fm = g.getFontMetrics(font);
+		g.setFont(font);
 		g.drawString(text, x - (fm.stringWidth(text) / 2) + (width / 2), y + (fm.getHeight() / 3) + (height / 2));
 	}
 	

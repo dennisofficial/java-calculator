@@ -8,10 +8,9 @@ public class Main {
 		JFrame f = new JFrame("Calculator");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(new JavaPanel());
-		f.pack();
-		f.setSize(JavaPanel.WIDTH / 2, JavaPanel.HEIGHT / 2);
-		f.setResizable(false);
 		f.setVisible(true);
+		f.setResizable(false);
+		f.setSize(JavaPanel.WIDTH, JavaPanel.HEIGHT);
 		f.setLocationRelativeTo(null);
 	}
 	
