@@ -29,9 +29,6 @@ public class JavaPanel extends JPanel implements ActionListener {
 	Mouse mouse = new Mouse();
 	List<Button> buttons = new ArrayList<Button>();
 	
-	int tick = 0;
-	int fps = 0;
-	
 	public JavaPanel() {
 		setFocusable(true);
 		requestFocus();
@@ -46,23 +43,6 @@ public class JavaPanel extends JPanel implements ActionListener {
 		setupButtons();
 		
 		new Timer(1000 / 60, this).start();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(1000);
-					}
-					catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.out.printf("FPS: %d - Ticks: %d\n", fps, tick);
-					fps = 0;
-					tick = 0;
-				}
-			}
-			
-		});
 	}
 
 	@Override
@@ -72,7 +52,6 @@ public class JavaPanel extends JPanel implements ActionListener {
 		}
 		keyboard.reset();
 		mouse.reset();
-		tick++;
 		repaint();
 	}
 	
@@ -100,7 +79,6 @@ public class JavaPanel extends JPanel implements ActionListener {
 		}
 		
 		g1.drawImage(image, 0, 0, WIDTH, HEIGHT, null);
-		fps++;
 	}
 	
 	public void setupButtons() {

@@ -14,7 +14,9 @@ public class Button {
 	public Integer x, y, width, height;
 	public Thread thread;
 	public Rectangle bounds;
-	
+
+	private Color color = new Color(0xD4D5D9);
+
 	public Button(String text, Integer x, Integer y, Integer width, Integer height, Thread thread) {
 		this.text = text;
 		this.x = x;
@@ -23,18 +25,25 @@ public class Button {
 		this.height = height;
 		this.thread = thread;
 	}
-	
+
 	public void update() {
 		bounds = new Rectangle(x, y, width, height);
-		if (Mouse.isPressed(MouseEvent.BUTTON1)) {
-			if (bounds.contains(Mouse.getPoint())) {
+		if (bounds.contains(Mouse.getPoint())) {
+			color = new Color(0xE4E5E9);
+			if (Mouse.isDirect(MouseEvent.BUTTON1)) {
+				color = new Color(0xC4C5C9);
+			}
+			if (Mouse.isPressed(MouseEvent.BUTTON1)) {
 				thread.run();
 			}
 		}
+		else {
+			color = new Color(0xD4D5D9);
+		}
 	}
-	
+
 	public void draw(Graphics2D g) {
-		g.setColor(new Color(0xD4D5D9));
+		g.setColor(color);
 		g.fillRect(x, y, width, height);
 		g.setColor(new Color(0x0));
 		Font font = g.getFont().deriveFont(Font.PLAIN, 27f);
@@ -42,5 +51,5 @@ public class Button {
 		g.setFont(font);
 		g.drawString(text, x - (fm.stringWidth(text) / 2) + (width / 2), y + (fm.getHeight() / 3) + (height / 2));
 	}
-	
+
 }
